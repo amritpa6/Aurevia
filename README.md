@@ -1,5 +1,5 @@
 <!-- Project: Aurelia - Full-stack car rental platform -->
-# Aurelia
+# Aurevia
 
 ![Node.js](https://img.shields.io/badge/Runtime-Node.js-green)
 ![React](https://img.shields.io/badge/Frontend-React%2019-61DAFB)
