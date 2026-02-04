@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Outfit:wght@100..900&display=swap");
+
+@import "tailwindcss";
+
+* {
+  font-family: "Outfit", sans-serif;
+}
+
+.brand-font {
+  font-family: "Cinzel", serif;
+  letter-spacing: 0.04em;
+}
+
+@theme {
+  --color-primary: #d97745;
+  --color-primary-dull: #c16638;
+  --color-light: #eef2f7;
+  --color-borderColor: #d7dee8;
+  --color-accent: #f2b366;
+}
+
+body {
+  background-color: #eef2f7;
+  color: #111827;
+}
