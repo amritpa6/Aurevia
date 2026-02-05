@@ -137,7 +137,7 @@ const CarDetails = () => {
             <input value={returnDate} onChange={(e) => setReturnDate(e.target.value)} type="date" className='border border-borderColor px-3 py-2 rounded-lg' required id='return-date' min={new Date().toISOString().split('T')[0]}/>
           </div>
 
-          <button className='w-full bg-primary hover:bg-primary-dark transition-all py-3 font-medium text-white rounded-xl cursor-pointer'>Book Now</button>
+          <button className='w-full bg-primary hover:bg-primary-dull transition-all py-3 font-medium text-white rounded-xl cursor-pointer'>Book Now</button>
 
           <p className='text-center text-sm'>No credit card required to reserve</p>
 

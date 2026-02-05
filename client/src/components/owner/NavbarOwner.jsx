@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { assets} from '../../assets/assets'
 import { UseAppContext } from '../../context/AppContext'
 
 const NavbarOwner = () => {
@@ -8,11 +7,13 @@ const NavbarOwner = () => {
     const { user } = UseAppContext();
 
   return (
-    <div className='flex items-center justify-between px-6 md: px-10 py-4 text-gray-500 border-b border-borderColor relative transition-all'>
-        <Link to='/'>
-            <img src={assets.logo} alt="" className='h-7' />
+    <div className='relative flex items-center justify-between border-b border-borderColor bg-light px-6 py-4 text-gray-600 transition-all md:px-10'>
+        <Link to='/' className='select-none'>
+            <span className='brand-font text-2xl font-bold text-gray-800'>Aurevia</span>
         </Link>
-        <p>Welcome {user?.name || "Owner"}</p>
+        <p className='text-sm md:text-base'>
+            Welcome, <span className='font-medium text-gray-800'>{user?.name || "Owner"}</span>
+        </p>
 
       
     </div>
