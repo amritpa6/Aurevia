@@ -43,7 +43,7 @@ Core capabilities:
 - Soft delete support for cars (`isDeleted`) to preserve booking history
 
 ## Live Demo
-- https://aurevia-omega.vercel.app/owner/add-car
+- https://aurevia-omega.vercel.app
 
 ## Technologies Used
 - React 19 + React Router
