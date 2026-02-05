@@ -39,7 +39,17 @@ const MyBookings = () => {
 
       <div>
         {bookings.length > 0 ? (
-          bookings.map((booking, index) => (
+          bookings.map((booking, index) => {
+            const car = booking.car;
+            const hasCar = Boolean(car);
+            const carName = hasCar ? `${car.brand} ${car.model}` : "Car removed";
+            const carMeta = hasCar
+              ? `${car.year} • ${car.category} • ${car.location}`
+              : "This car is no longer available.";
+            const carImage = hasCar ? car.image : assets.main_car;
+            const pickupLocation = hasCar ? car.location : "Unavailable";
+
+            return (
             <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }}
@@ -49,12 +59,12 @@ const MyBookings = () => {
               {/* Car image + car info */}
               <div className='md:col-span-1'>
                 <div className=' rounded-md overflow-hidden mb-3'>
-                  <img src={booking.car.image} alt="" className='w-full h-auto aspect-video object-cover'/>
+                  <img src={carImage} alt="" className='w-full h-auto aspect-video object-cover'/>
                 </div>
                 <div>
-                  <p className='text-lg font-medium mt-2'>{booking.car.brand} {booking.car.model} </p>
+                  <p className='text-lg font-medium mt-2'>{carName}</p>
 
-                  <p className='text-gray-500'>{booking.car.year} • {booking.car.category} • {booking.car.location}</p>
+                  <p className='text-gray-500'>{carMeta}</p>
                 </div>
 
               </div>
@@ -85,7 +95,7 @@ const MyBookings = () => {
                     <img src={assets.location_icon_colored} alt="" className="w-4 h-4 mt-1" />
                     <div>
                       <p className='text-gray-500'>Pickup Location</p>
-                      <p>{booking.car.location}</p>
+                      <p>{pickupLocation}</p>
                     </div>
                   </div>
                  
@@ -103,7 +113,7 @@ const MyBookings = () => {
 
             </motion.div>
 
-          ))
+          )})
         ) : null}
       </div>
 

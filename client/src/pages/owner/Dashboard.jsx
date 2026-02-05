@@ -71,14 +71,18 @@ const Dashboard = () => {
         <div className='p-4 md:p-6 border border-borderColor rounded-md max-w-lg w-full'>
           <h1 className='text-lg font-medium' >Recent Bookings</h1>
           <p className='text-gray-500'>Latest customer bookings</p>
-          {data.recentBookings.map((booking,index) => (
+          {data.recentBookings.map((booking,index) => {
+            const car = booking.car;
+            const carName = car ? `${car.brand} ${car.model}` : "Car removed";
+
+            return (
             <div key={index} className='mt-4 flex items-center justify-between'>
               <div className='flex items-center gap-2'>
                   <div className='hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-primary/10'>
                     <img src={assets.listIconColored} alt="" className='h-5 w-5' />
                   </div>
                   <div>
-                    <p>{booking.car.brand} {booking.car.model}</p>
+                    <p>{carName}</p>
                     <p className='text-sm text-gray-500'>{booking.createdAt.split('T')[0]}</p>
                   </div>
               </div>
@@ -88,7 +92,7 @@ const Dashboard = () => {
 
               </div>
             </div>
-          ))}
+          )})}
 
         </div>
         {/* monthly revenue */}
