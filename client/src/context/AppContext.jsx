@@ -9,11 +9,19 @@ axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 export const AppContext = createContext({});
 
+const getInitialToken = () => {
+    const savedToken = localStorage.getItem('token');
+    if (!savedToken || savedToken === 'null' || savedToken === 'undefined') {
+        return null;
+    }
+    return savedToken;
+};
+
 export const AppProvider = ({children}) => {
 
     const navigate = useNavigate();
     const currency = import.meta.env.VITE_CURRENCY || '$'; 
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState(getInitialToken);
     const [user, setUser] = useState(null);
     const [isOwner, setIsOwner] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
@@ -21,6 +29,14 @@ export const AppProvider = ({children}) => {
     const [returnDate, setReturnDate] = useState('');
 
     const [cars, setCars] = useState([]);
+
+    const clearAuthState = () => {
+        localStorage.removeItem('token');
+        setToken(null);
+        setUser(null);
+        setIsOwner(false);
+        delete axios.defaults.headers.common['Authorization'];
+    };
 
     // Function to check if the user is logged in
     const fetchUser = async () => {
@@ -33,7 +49,11 @@ export const AppProvider = ({children}) => {
                 navigate('/');
             }
         } catch (error) {
-            toast.error(error.message);
+            if (error.response?.status === 401) {
+                clearAuthState();
+                return;
+            }
+            toast.error(error.response?.data?.message || error.message);
         }
     }
 
@@ -49,28 +69,18 @@ export const AppProvider = ({children}) => {
 
     // Function to log out the user
     const logout = () => {
-        localStorage.removeItem('token');
-        setToken(null);
-        setUser(null);
-        setIsOwner(false);
-        axios.defaults.headers.common['Authorization'] = '';
+        clearAuthState();
         toast.success('Logged out successfully');
     }
-
-    // Use effect to fetch token fron local storage 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            setToken(token);
-        }
-    }, []);
 
     // Use effect to fetch user data when token is available
     useEffect(() => {
         if (token) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Token is added in all requests
             fetchUser();
+            return;
         }
+        delete axios.defaults.headers.common['Authorization'];
     }, [token]);
 
     // Fetch cars once on app load
